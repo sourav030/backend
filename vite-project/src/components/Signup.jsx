@@ -26,7 +26,7 @@ const Signup = () => {
     <>
       {!token ? (
         <div className="flex justify-center items-center w-full h-screen border">
-          <div className="p-2 border flex flex-col w-[28%] h-[55%] ">
+          <div className="p-2 border flex flex-col w-[28%] h-[65%] ">
             <div className="flex justify-center items-center">
               <h2 className="text-2xl font-semibold">Signup</h2>
             </div>

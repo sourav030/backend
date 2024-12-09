@@ -30,15 +30,15 @@ const Profile = () => {
   };
 
   // Delete Handler for Delter a user Post
-  const DeleteHandler= async(id)=>{
-    
-    try{
-        const response=await axios.post('http://localhost:4000/api/v1/DeletePost',{id})
-        fetchUserData()
-        toast.success(response.data.message)
-        console.log(response)
-    }catch(err){
-        console.log(err)
+  const DeleteHandler = async (id) => {
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/DeletePost', { id })
+      fetchUserData()
+      toast.success(response.data.message)
+      console.log(response)
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -67,31 +67,48 @@ const Profile = () => {
   );
 
   return (
-    <div className="mt-[90px] w-screen ml-[25px]">
-      <div className="grid grid-cols-3  ">
-        {loading ? (
-          <LoadingState />
-        ) : data.length === 0 ? (
-          <EmptyState />
-        ) : (
-          data.map((item) => (
-            <div className="border rounded-lg shadow-sm p-4 gap-0 w-[70%] " key={item._id}>
-              <div className="border-b flex justify-between items-center pb-2">
-                <div className="flex items-center gap-3">
-                  <img className="w-[49px] h-[49px] rounded-full" src={AVATAR_URL} alt="User" />
-                  <h3 className="text-[15px] font-bold">
-                    {item?.author?.name || "Unknown Author"}
-                  </h3>
-                </div>
-                <MdDelete className="text-red-500 hover:cursor-pointer" onClick={()=>{DeleteHandler(item._id)}}/>
+
+
+    <div className="mt-[90px] w-screen  px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+      {loading ? (
+        <LoadingState />
+      ) : data.length === 0 ? (
+        <EmptyState />
+      ) : (
+        data.map((item) => (
+          <div className="border rounded-lg shadow-md p-4 w-full max-w-full h-[400px] bg-white" key={item._id}>
+            <div className="border-b pb-3 mb-3 flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-12 h-12 rounded-full object-cover"
+                  src={AVATAR_URL}
+                  alt="User"
+                />
+                <h3 className="text-base font-semibold text-gray-800">
+                  {item?.author?.name || "Unknown Author"}
+                </h3>
               </div>
-              <div className="font-semibold text-lg mt-2">{item.title}</div>
-              <div className="text-gray-700 mt-2">{item.content}</div>
+              <MdDelete
+                className="text-red-500 hover:cursor-pointer hover:scale-110 transition-transform duration-150"
+                onClick={() => DeleteHandler(item._id)}
+                title="Delete"
+              />
             </div>
-          ))
-        )}
-      </div>
+            <div className="font-semibold text-lg text-gray-900 mt-2">
+              {item.title}
+            </div>
+            <div className="text-gray-700 mt-2 leading-relaxed overflow-auto h-[200px]">
+              {item.content}
+            </div>
+          </div>
+        ))
+      )}
     </div>
+  </div>
+  
+
+
   );
 };
 

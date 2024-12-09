@@ -13,3 +13,20 @@
         scrollbar-width: none;  /* Firefox */
   }
 }
+
+body{
+    max-width: 1200px;
+    margin:0 auto
+}
+
+/* For WebKit browsers */
+::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+  }
+  
+  /* Ensure scroll functionality remains */
+  html {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  }
+  

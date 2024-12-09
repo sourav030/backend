@@ -28,13 +28,13 @@ const CreatePost = () => {
         <div className='flex justify-center  mt-11 h-screen '>
         {
             token ? 
-            <div className='mt-2 border border-grey-600  w-[25%] h-[200px] mt-5 '>
+            <div className='mt-2 border border-grey-600  w-[35%] h-[200px] mt-5 '>
             <div className='border border-b-gray-600 flex h-[55px]'>
-                <input onChange={(e)=>setTitle(e.target.value)} value={title} className=' p-2 border w-full ' type="text" placeholder='Enter your Title' />
+                <input required onChange={(e)=>setTitle(e.target.value)} value={title} className=' p-2 border w-full ' type="text" placeholder='Enter your Title' />
             </div>
 
             <div className=' mt-1 h-[100px]'>
-                <textarea onChange={(e)=>setContent(e.target.value)} value={content} className='w-full border p-2' name="postContent" rows={4} cols={40} />
+                <textarea required onChange={(e)=>setContent(e.target.value)} value={content} className='w-full border p-2' name="postContent" rows={4} cols={40} />
             </div>
 
             <button onClick={Post} className='font-semibold text-xl h-[40px]  bg-gray-200 hover:bg-blue-500 rounded-sm w-full border'>Post</button>
