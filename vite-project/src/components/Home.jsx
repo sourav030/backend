@@ -1,66 +1,76 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { MyContext } from './../context/Context';
 import Login from './Login';
 import axios from 'axios';
 
-
 const Home = () => {
-  const url = 'https://avatar.iran.liara.run/public/boy'
-  const { token, setToken } = useContext(MyContext)
+  const url = 'https://avatar.iran.liara.run/public/boy';
+  const { token, setToken } = useContext(MyContext);
+  const [data, setData] = useState([])
+  // Fetch data function
+  const fetchData = async () => {
+    if (!token) {
+      console.log('Token not available');
+      return;
+    }
 
-  const fetchData = async (req, res) => {
-    setToken(localStorage.getItem('token'))
-    const response = await axios.post('http://localhost:4000/api/v1/getpost', {}, {
-      headers: {
-        token:token
-      }
-    })
-    console.log(response)
-  }
-
-  useEffect(()=>{
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/getpost', {}, {
+        headers: {
+          token,
+        },
+      });
      
-     fetchData()
-  },[])
+      setData(response.data.data)
+      data.reverse()
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  // useEffect to set the token from localStorage on component mount
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, [setToken]);
+
+  // Call fetchData only when token is available
+  useEffect(() => {
+    if (token) {
+      fetchData();
+    }
+
+  }, [token]);
 
   return (
     <div>
-      {
-        token ?
-          <div className=' p-3 flex flex-col justify-center items-center overflow-auto '>
+      {token ? (
+        <div className='p-3    mt-8 flex flex-col justify-center items-center overflow-auto'>
+          {
+            data.map((item) => (
+              <div key={item._id} className='border  border-gray-300 mt-9 w-[28%] shadow-xl'>
 
-            <div className=' border  border-gray-300 mt-9 w-[22%]'>
+                <div className='border p-2 flex gap-2'>
+                  <img className='w-[45px]' src={url} alt='User' />
+                  <p className='p-3 font-bold text-[15px] '>{item.author.name}</p>
+                </div>
+                <div className='border p-2 font-semibold text-[19px]'> Topic {item.title}</div>
+                <div className='m-2 p-2'>
+                  {item.content}
+                </div>
 
-              <div className='border p-2 flex gap-2'>
-                <img className='w-[45px]' src={url} />
-                <p className='p-3'>userName</p>
               </div>
+            ))
+          }
 
-              <div className='border p-2'>topic</div>
-              <div className='m-2'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum tempora eius libero nobis possimus? Doloremque voluptas dolor maxime eligendi repudiandae numquam iusto iste accusamus qui pariatur, omnis, recusandae assumenda minus!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, nemo. Reiciendis repellat porro fugiat atque ratione possimus quam dolorem sed dolor iure? Quos vero quasi amet ex sit ipsam id?
-              </div>
-            </div>
-
-            <div className=' border  border-gray-300 mt-9 w-[22%]'>
-
-              <div className='border p-2 flex gap-2'>
-                <img className='w-[45px]' src={url} />
-                <p className='p-3'>userName</p>
-              </div>
-
-              <div className='border p-2'>topic</div>
-              <div className='m-2'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum tempora eius libero nobis possimus? Doloremque voluptas dolor maxime eligendi repudiandae numquam iusto iste accusamus qui pariatur, omnis, recusandae assumenda minus!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, nemo. Reiciendis repellat porro fugiat atque ratione possimus quam dolorem sed dolor iure? Quos vero quasi amet ex sit ipsam id?
-              </div>
-            </div>
-          </div> :
-          <Login />
-      }
+        </div>
+      ) : (
+        <Login />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -62,6 +62,7 @@ exports.login= async (req,res)=>{
        const token= jwt.sign({id},process.env.SECRET)
        res.json({
         success:true,
+      
         token
        })      
     }catch(err){

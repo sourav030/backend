@@ -10,6 +10,7 @@ const CreatePost = () => {
     const [content,setContent]=useState('')
     const {token,setToken}=useContext(MyContext)
     const navigate=useNavigate()
+
         const Post= async ()=>{
         console.log(token)
         const response=await axios.post('http://localhost:4000/api/v1/post',{title,content},{headers: {
@@ -22,8 +23,9 @@ const CreatePost = () => {
         
         console.log(response)
     }
+    
     return (
-        <div className='flex justify-center  mt-19 '>
+        <div className='flex justify-center  mt-11 h-screen '>
         {
             token ? 
             <div className='mt-2 border border-grey-600  w-[25%] h-[200px] mt-5 '>
@@ -32,7 +34,7 @@ const CreatePost = () => {
             </div>
 
             <div className=' mt-1 h-[100px]'>
-                <textarea onChange={(e)=>setContent(e.target.value)} value={content} className='w-full border' name="postContent" rows={4} cols={40} />
+                <textarea onChange={(e)=>setContent(e.target.value)} value={content} className='w-full border p-2' name="postContent" rows={4} cols={40} />
             </div>
 
             <button onClick={Post} className='font-semibold text-xl h-[40px]  bg-gray-200 hover:bg-blue-500 rounded-sm w-full border'>Post</button>

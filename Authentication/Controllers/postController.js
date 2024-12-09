@@ -42,3 +42,42 @@ exports.GetAllPost=async (req,res)=>{
         })
     }
 }
+
+exports.UserPost=async(req,res)=>{
+    try{
+
+        const author=req.id;
+        const post= await postModel.find({author}).populate({path:'author',select:"-password"})
+        console.log(post)
+        res.status(200).json({
+            succes:true,
+            post
+        })
+
+    }catch(err){
+        console.log(err);
+        res.status(400).json({
+            sucess:false,
+            message:err.message
+        })
+    }
+}
+
+exports.DeletePost=async (req,res)=>{
+    try{
+        const {id}=req.body;
+        const post= await postModel.findByIdAndDelete(id)
+        console.log(post);
+        res.json({
+            success:true,
+            message:"Delete Successfully",
+            post
+        })
+    }catch(err){
+        console.log(err)
+        res.status(400).json({
+            sucess:false,
+            message:err.message
+        })
+    }
+}
