@@ -40,7 +40,7 @@ const CreatePost = () => {
             <button onClick={Post} className='font-semibold text-xl h-[40px]  bg-gray-200 hover:bg-blue-500 rounded-sm w-full border'>Post</button>
 
         </div>:
-        <Login />
+         <p className="text-center text-gray-500 mt-5">Login Please</p>
         }
         </div>
     )

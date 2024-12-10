@@ -69,7 +69,7 @@ const Profile = () => {
   return (
 
 
-    <div className="mt-[90px] w-screen  px-4">
+    <div className="mt-[90px]   px-4">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
       {loading ? (
         <LoadingState />
@@ -77,7 +77,7 @@ const Profile = () => {
         <EmptyState />
       ) : (
         data.map((item) => (
-          <div className="border rounded-lg shadow-md p-4 w-full max-w-full h-[400px] bg-white" key={item._id}>
+          <div className="border rounded-lg shadow-md p-4  max-w-full h-[400px] bg-white" key={item._id}>
             <div className="border-b pb-3 mb-3 flex justify-between items-center">
               <div className="flex items-center gap-4">
                 <img
@@ -90,7 +90,7 @@ const Profile = () => {
                 </h3>
               </div>
               <MdDelete
-                className="text-red-500 hover:cursor-pointer hover:scale-110 transition-transform duration-150"
+                className="text-red-500 size-6 hover:cursor-pointer hover:scale-110 transition-transform duration-150"
                 onClick={() => DeleteHandler(item._id)}
                 title="Delete"
               />

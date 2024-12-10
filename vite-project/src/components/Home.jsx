@@ -62,7 +62,7 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <Login />
+        <p className="text-center text-gray-500 mt-5">Login Please</p>
       )}
     </div>
 
